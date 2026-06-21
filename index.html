@@ -290,35 +290,37 @@
 
     // العداد التنازلي للتحميل
         function startDownload(event, element) {
-      event.preventDefault(); 
-      
-      const targetUrl = element.getAttribute('href');
-      
-      // نبحث عن أقرب عنوان للعبة داخل البطاقة الحالية
-      const gameTitle = element.parentElement.querySelector('h2').textContent;
-      
-      let timeLeft = 3; 
-      
-      element.classList.add('counting');
-      element.textContent = `تجهيز.. (${timeLeft})`;
-      
-      // تأكد أن دالة showToast موجودة في الكود الخاص بك
-      if (typeof showToast === 'function') {
-          showToast(`🛡️ جاري تجهيز رابط آمن للعبة: <br><span style="color:#00f7ff">${gameTitle}</span>`);
-      }
+  event.preventDefault(); 
+  
+  const targetUrl = element.getAttribute('href');
+  
+  // هذا الكود يبحث عن أول h2 داخل البطاقة التي ينتمي إليها الزر (لا يهم كم هو بعيد في التصميم)
+  const gameCard = element.closest('.game-card');
+  const gameTitle = gameCard.querySelector('h2').textContent;
+  
+  let timeLeft = 3; 
+  
+  element.classList.add('counting');
+  element.textContent = `تجهيز.. (${timeLeft})`;
+  
+  // الإشعار (إذا كنت تستخدمه)
+  if (typeof showToast === 'function') {
+      showToast(`🛡️ جاري تجهيز رابط آمن للعبة: <br><span style="color:#00f7ff">${gameTitle}</span>`);
+  }
 
-      const countdown = setInterval(() => {
-        timeLeft--;
-        if (timeLeft <= 0) {
-          clearInterval(countdown);
-          element.classList.remove('counting');
-          element.textContent = 'تحميل';
-          window.open(targetUrl, '_blank'); 
-        } else {
-          element.textContent = `تجهيز.. (${timeLeft})`;
-        }
-      }, 1000);
+  const countdown = setInterval(() => {
+    timeLeft--;
+    if (timeLeft <= 0) {
+      clearInterval(countdown);
+      element.classList.remove('counting');
+      element.textContent = 'تحميل';
+      window.open(targetUrl, '_blank'); 
+    } else {
+      element.textContent = `تجهيز.. (${timeLeft})`;
     }
+  }, 1000);
+}
+
 
 
     // التقييم بالنجوم التفاعلية
