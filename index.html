@@ -289,17 +289,23 @@
     }
 
     // العداد التنازلي للتحميل
-    function startDownload(event, element) {
+        function startDownload(event, element) {
       event.preventDefault(); 
       
       const targetUrl = element.getAttribute('href');
-      const gameTitle = element.parentElement.parentElement.querySelector('h2').textContent;
+      
+      // نبحث عن أقرب عنوان للعبة داخل البطاقة الحالية
+      const gameTitle = element.parentElement.querySelector('h2').textContent;
+      
       let timeLeft = 3; 
       
       element.classList.add('counting');
       element.textContent = `تجهيز.. (${timeLeft})`;
       
-      showToast(`🛡️ جاري تجهيز رابط آمن للعبة: <br><span style="color:#00f7ff">${gameTitle}</span>`);
+      // تأكد أن دالة showToast موجودة في الكود الخاص بك
+      if (typeof showToast === 'function') {
+          showToast(`🛡️ جاري تجهيز رابط آمن للعبة: <br><span style="color:#00f7ff">${gameTitle}</span>`);
+      }
 
       const countdown = setInterval(() => {
         timeLeft--;
@@ -313,6 +319,7 @@
         }
       }, 1000);
     }
+
 
     // التقييم بالنجوم التفاعلية
     document.querySelectorAll('.rating-stars').forEach(container => {
