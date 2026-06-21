@@ -152,10 +152,15 @@
       transition: border-color 0.3s, box-shadow 0.3s;
     }
 
-    .game-card img{
+.game-image{
+    overflow: hidden;
+}
+
+.game-image img{
     width: 100%;
-    height: auto;
-    }
+    height: 100%;
+    object-fit: cover;
+}
 
     .game-card:hover .img-container {
       border-color: #00f7ff;
