@@ -578,10 +578,9 @@
 
       gameCards.forEach(card => {
         const title = card.querySelector('h2').textContent.toLowerCase();
-        const description = card.querySelector('p').textContent.toLowerCase();
         const cardCategory = card.getAttribute('data-category');
 
-        const matchesSearch = title.includes(query) || description.includes(query);
+        const matchesSearch = title.includes(query);
         const matchesCategory = currentCategory === 'all' || cardCategory === currentCategory;
 
         if (matchesSearch && matchesCategory) {
